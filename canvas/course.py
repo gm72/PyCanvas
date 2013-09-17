@@ -7,6 +7,7 @@ import json
 
 from .core import CanvasObject
 from .tab import Tab
+from .assignment import Assignment
 
 class Course(CanvasObject):
     """
@@ -47,6 +48,13 @@ class Course(CanvasObject):
             tabs.append(Tab(self, tab))
         return tabs
 
+    @property
+    def assignments(self):
+        assignments_response = self.canvas._call("%s%s/%s" % (self._resource_url, self.dict['id'], Assignment.resource_url()))
+        assignments = []
+        for assignment in json.loads(assignments_response.text ):
+            assignments.append(Assignment(self, assignment))
+        return assignments
 
 """
 {
