@@ -2,36 +2,21 @@
 
 __author__ = 'Garrett Pennington'
 __date__ = '09/16/13'
-    
 
-import urllib
-import datetime
 import requests
-import json
+#import json
+#import urllib
+#import datetime
 
 from .core import CanvasObject
 from .account import Account
 
-DEFAULT_BASE_URL = "https://k-state.instructure.com/api/v1/"
-TOKEN = 'foo'
-
 class Course(CanvasObject):
     """
     Course object
+    Takes a dict of course attrs
     """
-
-    def __init__(self, id):
-        """
-        init
-        """
-        self.resource_url = 'courses/'
-        
-        r = requests.get('%scourses/%s/?access_token=%s' % (self.endpoint(), id, TOKEN))
-        self.response = r.text
-        self.dict = json.loads(self.response)
-
-    #def to_dict(self):
-        #return self.dict
+    _resource_url = 'courses/'
 
     @property
     def name(self):
@@ -55,6 +40,7 @@ class Course(CanvasObject):
 
     def account(self):
         return Account(self.account_id)
+
 
     """
 

@@ -3,33 +3,33 @@
 __author__ = 'Garrett Pennington'
 __date__ = '09/16/13'
 
-
-import urllib
-import datetime
 import requests
 import json
 
-DEFAULT_BASE_URL = "https://k-state.instructure.com/api/v1/"
-TOKEN = '1726~bQFj1jZNDBfpCw3OSEgO6L716GuKkZwce00EJQBbMiuuoZp2X00a3EIHaShom0Ad'
+from .core import CanvasObject
 
-class Account(object):
+class Account(CanvasObject):
     """
     Account object
     """
+    _resource_url = 'accounts/'
 
-    def __init__(self, id):
-        """
-        :param id: int
-        """
-        self.resource_url = 'accounts/'
+
+    @property
+    def courses(self):
+        new_url = "%scourses/" % self.url
+        #return self._call(new_url, self.token)
         
-        r = requests.get('%saccounts/%s/?access_token=%s' % (DEFAULT_BASE_URL, id, TOKEN))
-        self.response = r.text
-        self.dict = json.loads(self.response)
+        """
+        courses = self._call(new_url, self.token)
+        courses_dict = self.to_dict(courses)
+        new_courses = []
+        for course in courses_dict:
+            new_courses.append(course)
+        Course(self._en dpoint(), self.token, id)
+        return courses
+        """
 
-
-    def to_dict(self):
-        return self.dict
 
     @property
     def default_time_zone(self):
