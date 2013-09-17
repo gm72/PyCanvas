@@ -4,12 +4,11 @@ __author__ = 'Garrett Pennington'
 __date__ = '09/16/13'
 
 import requests
-#import json
+import json
 #import urllib
 #import datetime
 
 from .core import CanvasObject
-from .account import Account
 
 class Course(CanvasObject):
     """
@@ -38,8 +37,8 @@ class Course(CanvasObject):
     def account_id(self):
         return self.dict['account_id']
 
-    def account(self):
-        return Account(self.account_id)
+    def get_account(self):
+        return self.canvas.get_account(self.account_id)
 
 
     """

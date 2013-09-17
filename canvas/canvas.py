@@ -49,18 +49,21 @@ class Canvas(object):
         """
         #courses/:id/
         url = "%s%s/" % (Course.resource_url(), id)
-        return Course( json.loads(self._call(url).text) )
+        return Course( self, json.loads(self._call(url).text) )
 
-    def get_courses(self):
+    def get_courses(self, path=None):
         """
         get_courses
         """
-        url = "%s" % Course.resource_url()
+        if path:
+            url = path
+        else:
+            url = "%s" % Course.resource_url()
 
         courses_response = self._call(url)
         courses = []
         for course in json.loads(courses_response.text ):
-            courses.append(Course(course))
+            courses.append(Course(self, course))
         return courses
         
     def get_account(self, id):
@@ -69,4 +72,4 @@ class Canvas(object):
         """
         url = "%s%s/" % (Account.resource_url(), id)
         
-        return Account( json.loads(self._call(url).text) )
+        return Account( self, json.loads(self._call(url).text) )

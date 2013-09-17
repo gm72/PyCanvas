@@ -14,22 +14,9 @@ class Account(CanvasObject):
     """
     _resource_url = 'accounts/'
 
-
-    @property
-    def courses(self):
-        new_url = "%scourses/" % self.url
-        #return self._call(new_url, self.token)
-        
-        """
-        courses = self._call(new_url, self.token)
-        courses_dict = self.to_dict(courses)
-        new_courses = []
-        for course in courses_dict:
-            new_courses.append(course)
-        Course(self._en dpoint(), self.token, id)
-        return courses
-        """
-
+    def get_courses(self):
+        url = "%s%s/courses/" % (self._resource_url, self.dict['id'], )
+        return self.canvas.get_courses(url)
 
     @property
     def default_time_zone(self):
