@@ -14,7 +14,8 @@ class Account(CanvasObject):
     """
     _resource_url = 'accounts/'
 
-    def get_courses(self):
+    @property
+    def courses(self):
         url = "%s%s/courses/" % (self._resource_url, self.dict['id'], )
         return self.canvas.get_courses(url)
 
@@ -34,8 +35,9 @@ class Account(CanvasObject):
     def parent_account_id(self):
         return self.dict['parent_account_id']
 
+    @property
     def parent_account(self):
-        return Account(self.parent_account_id)
+        return self.canvas.get_account(self.parent_account_id)
 
     @property
     def root_account_id(self):

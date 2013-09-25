@@ -35,8 +35,9 @@ class Course(CanvasObject):
     @property
     def account_id(self):
         return self.dict['account_id']
-
-    def get_account(self):
+    
+    @property
+    def account(self):
         return self.canvas.get_account(self.account_id)
 
 
